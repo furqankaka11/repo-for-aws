@@ -1,0 +1,26 @@
+
+version: '3.7'
+services:
+  frontend:
+    container_name: frontend
+    image: react-app/frontend
+    build:
+      context: ./my-app
+      dockerfile: Dockerfile
+    ports:
+     - "3001:3000"
+    environment:
+     - REACT_APP_BACKEND_URL=http://backend:8000
+    depends_on:
+     - backend
+    restart: always
+  
+  backend:
+    container_name: backend
+    image: node.js/backend
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+     - "8000:8000"
+    restart: always
